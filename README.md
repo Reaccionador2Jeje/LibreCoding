@@ -40,10 +40,10 @@ These are the pillars the project is being built around:
 
 ## Status
 
-LibreCoding is in **early development**. The repository currently contains the
-project documentation and licensing; the application itself is being designed and
-built. Setup and usage instructions will be added here as soon as the first
-runnable version exists.
+LibreCoding is in **early development**, but it is already runnable. There is no
+build step, no dependencies and no server: open `index.html` in a browser and the
+site works, including the lessons, the in-browser code playground and the
+community demo. Progress and local posts are saved in your browser.
 
 ## Safety and privacy
 

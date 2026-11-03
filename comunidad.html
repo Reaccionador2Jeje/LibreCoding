@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comunidad — LibreCoding</title>
+<meta name="description" content="Comparte lo que construyes y pide ayuda. Comunidad de LibreCoding para aprender a programar.">
+<meta name="theme-color" content="#4f37e0">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span class="brand-name">Libre<span>Coding</span></span>
+    </a>
+
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="aprender.html">Aprender</a></li>
+        <li><a href="editor.html">Editor</a></li>
+        <li><a href="comunidad.html" aria-current="page">Comunidad</a></li>
+      </ul>
+    </nav>
+
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar tema oscuro">
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"/>
+      </svg>
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap section">
+
+    <div class="section-head">
+      <span class="eyebrow">Comunidad</span>
+      <h2>Comparte, pregunta, equivócate en público</h2>
+      <p>
+        Aquí nadie nace sabiendo. Publica lo que has hecho, cuenta dónde te atascaste
+        y ayuda a quien vaya un paso por detrás.
+      </p>
+    </div>
+
+    <div class="feed-layout">
+
+      <div>
+        <div class="notice notice--warn mb-4">
+          <span>
+            <strong>Esta versión de la comunidad es local.</strong>
+            Todavía no hay servidor ni cuentas: lo que publiques se guarda solo en este
+            navegador y nadie más lo ve. No escribas datos personales reales — ni tuyos
+            ni de otras personas.
+          </span>
+        </div>
+
+        <div class="card composer">
+          <div class="composer-row">
+            <span class="avatar" id="composer-avatar" aria-hidden="true">T</span>
+
+            <div class="composer-main">
+              <label class="field">
+                <span>Tu nombre o apodo</span>
+                <input type="text" id="composer-name" class="composer-name" maxlength="24" placeholder="p. ej. Ada" autocomplete="off">
+              </label>
+
+              <label class="field">
+                <span>¿Qué quieres contar?</span>
+                <textarea id="composer-text" maxlength="280" placeholder="He terminado la lección de listas y he hecho mi primera página..."></textarea>
+              </label>
+
+              <label class="field">
+                <span>¿Un fragmento de código? (opcional)</span>
+                <textarea id="composer-code" class="text-sm" maxlength="600" spellcheck="false" placeholder="<h1>Hola, mundo</h1>"></textarea>
+              </label>
+
+              <div class="composer-foot">
+                <button class="btn btn--primary" type="button" id="composer-submit">
+                  Publicar
+                </button>
+                <span class="composer-count" id="composer-count">0 / 280</span>
+                <span class="text-sm muted">Se guarda en este dispositivo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="feed" aria-live="polite">
+          <noscript>
+            <div class="notice">
+              <span><strong>Necesitas JavaScript</strong> para ver y escribir en el muro.</span>
+            </div>
+          </noscript>
+        </div>
+      </div>
+
+      <aside aria-label="Información de la comunidad">
+        <div class="card side-card">
+          <h2>Normas de la casa</h2>
+          <p class="rules-intro">
+            Son pocas y van en serio. El código de conducta completo está en
+            <a href="CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.
+          </p>
+          <ul class="rules">
+            <li>Aquí hay gente de todas las edades. Escribe como si lo fuera a leer un niño de 10 años.</li>
+            <li>Preguntar no es molestar. Burlarse de una pregunta sí.</li>
+            <li>Nada de datos personales: ni apellidos, ni colegio, ni dirección, ni teléfono.</li>
+            <li>Si alguien te pide hablar en privado, díselo a un adulto de confianza.</li>
+            <li>Critica el código, no a la persona.</li>
+          </ul>
+        </div>
+
+        <div class="card side-card">
+          <h2>¿Atascado con un error?</h2>
+          <p class="text-sm muted">
+            Antes de preguntar, prueba esto: lee el mensaje de la consola, comprueba
+            que cada etiqueta tiene su cierre y que cada propiedad de CSS termina en
+            punto y coma.
+          </p>
+          <a class="btn btn--ghost btn--sm" href="editor.html">Abrir el editor</a>
+        </div>
+
+        <div class="card side-card">
+          <h2>Proyecto abierto</h2>
+          <p class="text-sm muted">
+            LibreCoding es software libre bajo licencia Apache 2.0. Puedes leer el
+            código, aprender de él o proponer cambios.
+          </p>
+          <a class="btn btn--ghost btn--sm" href="CONTRIBUTING.md">Cómo contribuir</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+          <span class="brand-name">Libre<span>Coding</span></span>
+        </a>
+        <p>Una plataforma y red social para aprender a programar. Hecha por Atdev Dev.</p>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="aprender.html">Aprender</a></li>
+        <li><a href="editor.html">Editor</a></li>
+        <li><a href="comunidad.html">Comunidad</a></li>
+        <li><a href="CONTRIBUTING.md">Contribuir</a></li>
+        <li><a href="CODE_OF_CONDUCT.md">Normas</a></li>
+        <li><a href="SECURITY.md">Seguridad</a></li>
+        <li><a href="LICENSE">Licencia</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-legal">
+      <p>
+        © <span data-year>2026</span> Atdev Dev · Código bajo licencia Apache 2.0 ·
+        Proyecto en desarrollo.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/lessons-data.js"></script>
+<script src="assets/js/community.js"></script>
+</body>
+</html>

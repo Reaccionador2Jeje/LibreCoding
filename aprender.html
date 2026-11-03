@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aprender — LibreCoding</title>
+<meta name="description" content="Lecciones cortas de HTML, CSS y JavaScript para empezar a programar desde cero. Gratis y sin cuenta.">
+<meta name="theme-color" content="#4f37e0">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span class="brand-name">Libre<span>Coding</span></span>
+    </a>
+
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="aprender.html" aria-current="page">Aprender</a></li>
+        <li><a href="editor.html">Editor</a></li>
+        <li><a href="comunidad.html">Comunidad</a></li>
+      </ul>
+    </nav>
+
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar tema oscuro">
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"/>
+      </svg>
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap section">
+    <div class="learn-layout">
+
+      <aside class="lesson-sidebar" aria-label="Lista de lecciones">
+        <h2>Lecciones</h2>
+        <div id="lesson-nav">
+          <noscript>
+            <p class="notice">
+              <span><strong>Necesitas JavaScript</strong> para ver y usar las lecciones.</span>
+            </p>
+          </noscript>
+        </div>
+        <div class="lesson-sidebar-foot">
+          <button class="btn btn--ghost" type="button" id="reset-progress">
+            Reiniciar mi progreso
+          </button>
+        </div>
+      </aside>
+
+      <section class="lesson-pane" id="lesson-content" aria-live="polite">
+        <noscript>
+          <div class="notice">
+            <span>
+              <strong>Esta página necesita JavaScript.</strong>
+              Las lecciones se cargan y se muestran con JavaScript, y el progreso se
+              guarda en tu navegador. Actívalo y recarga la página.
+            </span>
+          </div>
+        </noscript>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+          <span class="brand-name">Libre<span>Coding</span></span>
+        </a>
+        <p>Una plataforma y red social para aprender a programar. Hecha por Atdev Dev.</p>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="aprender.html">Aprender</a></li>
+        <li><a href="editor.html">Editor</a></li>
+        <li><a href="comunidad.html">Comunidad</a></li>
+        <li><a href="CONTRIBUTING.md">Contribuir</a></li>
+        <li><a href="CODE_OF_CONDUCT.md">Normas</a></li>
+        <li><a href="SECURITY.md">Seguridad</a></li>
+        <li><a href="LICENSE">Licencia</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-legal">
+      <p>
+        © <span data-year>2026</span> Atdev Dev · Código bajo licencia Apache 2.0 ·
+        Proyecto en desarrollo.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/lessons-data.js"></script>
+<script src="assets/js/learn.js"></script>
+</body>
+</html>
