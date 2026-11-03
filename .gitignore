@@ -1,0 +1,91 @@
+# LibreCoding — .gitignore
+#
+# Language-agnostic on purpose: the stack is not chosen yet.
+# Delete the sections that do not apply once it is.
+
+# --- Editors and OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# --- Secrets and configuration ---
+# Never commit real credentials. Commit example files instead.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+*.local
+
+# --- Node.js / JavaScript / TypeScript ---
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+out/
+coverage/
+.turbo/
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- JVM and .NET ---
+*.class
+*.jar
+*.war
+# Eclipse / Visual Studio build output. Anchored so a source `bin/` (CLI
+# scripts) or `obj/` directory is not accidentally ignored.
+/bin/
+/obj/
+
+# --- Go ---
+*.exe
+*.test
+*.out
+vendor/
+
+# --- Rust ---
+# Cargo build output. Maven uses the same directory name.
+target/
+
+# --- PHP ---
+/vendor/
+
+# --- Supabase / local databases ---
+supabase/.branches/
+supabase/.temp/
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Testing and coverage ---
+.nyc_output/
+playwright-report/
+test-results/
+
+# --- Temporary files ---
+tmp/
+temp/
+*.bak
+*.orig
+*.rej
