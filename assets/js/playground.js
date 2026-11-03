@@ -36,7 +36,11 @@
   var consoleBox = document.getElementById("pg-console");
   var statusEl = document.getElementById("pg-status");
   var fileLabel = document.getElementById("pg-file-label");
+  var fileDot = document.getElementById("pg-file-dot");
   var titleEl = document.getElementById("pg-title");
+  var gutter = document.getElementById("pg-gutter");
+  var positionEl = document.getElementById("pg-position");
+  var countEl = document.getElementById("pg-count");
 
   if (!editor || !preview || !consoleBox) return;
 
@@ -213,8 +217,48 @@
       if (FILES[i].key === key) file = FILES[i];
     }
     if (fileLabel && file) fileLabel.textContent = file.label;
+    if (fileDot) fileDot.className = "pg-dot pg-dot--" + key;
 
+    updateGutter();
+    updateEditorMeta();
     editor.focus();
+  }
+
+  /* ---------- Gutter and cursor ---------- */
+  function lineCountOf(text) {
+    return String(text).split("\n").length;
+  }
+
+  function updateGutter() {
+    if (!gutter) return;
+
+    var lines = lineCountOf(editor.value);
+    var numbers = "";
+    for (var i = 1; i <= lines; i++) {
+      numbers += i + (i < lines ? "\n" : "");
+    }
+
+    gutter.textContent = numbers;
+    gutter.scrollTop = editor.scrollTop;
+  }
+
+  function updateEditorMeta() {
+    var value = editor.value;
+    var position = editor.selectionStart || 0;
+    var before = value.slice(0, position);
+    var line = lineCountOf(before);
+    var lastBreak = before.lastIndexOf("\n");
+    var column = position - lastBreak;
+
+    if (positionEl) {
+      positionEl.textContent = "Línea " + line + ", col. " + column;
+    }
+
+    if (countEl) {
+      var chars = value.length;
+      countEl.textContent =
+        chars + (chars === 1 ? " carácter" : " caracteres");
+    }
   }
 
   document.querySelectorAll(".pg-tab").forEach(function (tab) {
@@ -227,7 +271,17 @@
   editor.addEventListener("input", function () {
     code[activeTab] = editor.value;
     save();
+    updateGutter();
+    updateEditorMeta();
     if (statusEl) statusEl.textContent = "Sin ejecutar";
+  });
+
+  editor.addEventListener("scroll", function () {
+    if (gutter) gutter.scrollTop = editor.scrollTop;
+  });
+
+  ["keyup", "click", "select", "focus"].forEach(function (eventName) {
+    editor.addEventListener(eventName, updateEditorMeta);
   });
 
   // Tab key inserts two spaces instead of leaving the editor.
@@ -241,6 +295,8 @@
       editor.selectionStart = editor.selectionEnd = start + 2;
       code[activeTab] = editor.value;
       save();
+      updateGutter();
+      updateEditorMeta();
     }
 
     if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
@@ -261,6 +317,41 @@
       empty.className = "pg-console-empty";
       empty.textContent = "Los mensajes de console.log aparecerán aquí.";
       consoleBox.appendChild(empty);
+    });
+  }
+
+  var copyBtn = document.getElementById("pg-copy");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function () {
+      var text = code[activeTab] || "";
+      var original = copyBtn.textContent;
+
+      function announce() {
+        copyBtn.textContent = "Copiado";
+        window.setTimeout(function () {
+          copyBtn.textContent = original;
+        }, 1400);
+      }
+
+      function fallbackCopy() {
+        try {
+          editor.focus();
+          editor.select();
+          document.execCommand("copy");
+          announce();
+        } catch (err) {
+          copyBtn.textContent = "No se pudo";
+          window.setTimeout(function () {
+            copyBtn.textContent = original;
+          }, 1400);
+        }
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(announce, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
     });
   }
 

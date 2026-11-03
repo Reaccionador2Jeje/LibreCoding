@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aprender — LibreCoding</title>
-<meta name="description" content="Lecciones cortas de HTML, CSS y JavaScript para empezar a programar desde cero. Gratis y sin cuenta.">
+<meta name="description" content="Lecciones cortas de HTML, CSS, JavaScript, Python, Java, Scratch, SQL y muchos más lenguajes para empezar a programar desde cero. Gratis y sin cuenta.">
 <meta name="theme-color" content="#4f37e0">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/pages.css">
@@ -48,10 +48,37 @@
 
 <main id="main">
   <div class="wrap section">
+
+    <header class="page-hero learn-hero">
+      <div class="page-hero-copy">
+        <span class="eyebrow">Lecciones</span>
+        <h1>Aprende a programar, paso a paso</h1>
+        <p class="page-lead">
+          Lecciones cortas en 18 lenguajes, desde la web hasta Python, Java,
+          Scratch o SQL. Elige una y empieza a escribir código hoy mismo.
+        </p>
+        <div class="hero-meta">
+          <span class="badge badge--brand"><span data-lesson-count>30</span> lecciones</span>
+          <span class="badge"><span data-language-count>18</span> lenguajes</span>
+          <span class="badge">Sin cuenta</span>
+        </div>
+      </div>
+    </header>
+
     <div class="learn-layout">
 
       <aside class="lesson-sidebar" aria-label="Lista de lecciones">
         <h2>Lecciones</h2>
+
+        <div class="lesson-search">
+          <label class="sr-only" for="lesson-search">Buscar lecciones</label>
+          <input
+            type="search"
+            id="lesson-search"
+            placeholder="Buscar lección o lenguaje..."
+            autocomplete="off">
+        </div>
+
         <div id="lesson-nav">
           <noscript>
             <p class="notice">

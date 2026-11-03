@@ -66,7 +66,7 @@
         </div>
 
         <div class="hero-meta">
-          <span class="badge badge--brand"><span data-lesson-count>6</span> lecciones</span>
+          <span class="badge badge--brand"><span data-lesson-count>30</span> lecciones</span>
           <span class="badge">Funciona sin cuenta</span>
           <span class="badge">Sin instalar nada</span>
         </div>
@@ -153,7 +153,18 @@
       <div class="section-head">
         <span class="eyebrow">Lenguajes</span>
         <h2>¿Qué quieres aprender hoy?</h2>
-        <p>Empezamos por la web, porque es lo que puedes ver funcionando en un minuto.</p>
+        <p>Desde la web hasta Python, Java, Scratch, C++ o SQL. Elige un lenguaje y empieza por la primera lección.</p>
+      </div>
+
+      <div class="lang-toolbar">
+        <div class="lang-search-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <label class="sr-only" for="lang-search">Buscar un lenguaje</label>
+          <input type="search" id="lang-search" placeholder="Buscar un lenguaje..." autocomplete="off">
+        </div>
+        <span class="badge" id="lang-count">18 lenguajes</span>
       </div>
 
       <div class="grid grid--3" id="lang-grid">
@@ -164,6 +175,10 @@
           </p>
         </noscript>
       </div>
+
+      <p class="lang-empty" id="lang-empty" hidden>
+        No encontramos ese lenguaje. Prueba con otro nombre, como Python, Java o SQL.
+      </p>
     </div>
   </section>
 
@@ -180,7 +195,7 @@
             <div class="progress-fill" id="home-progress-fill"></div>
           </div>
           <p class="progress-label mb-0">
-            <span id="home-progress-text">0 de 6 lecciones</span>
+            <span id="home-progress-text">0 de 30 lecciones</span>
             <span id="home-progress-pct">0%</span>
           </p>
         </div>

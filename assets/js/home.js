@@ -40,6 +40,10 @@
         a.querySelector("p").textContent = lang.blurb;
         a.querySelector(".badge").textContent =
           count === 1 ? "1 lección" : count + " lecciones";
+        a.setAttribute(
+          "data-search",
+          (lang.name + " " + lang.blurb).toLowerCase()
+        );
         frag.appendChild(a);
       } else {
         var box = document.createElement("div");
@@ -55,11 +59,44 @@
         box.querySelector(".lang-name").textContent = lang.name;
         box.querySelector(".lang-sigil").textContent = lang.sigil;
         box.querySelector("p").textContent = lang.blurb;
+        box.setAttribute(
+          "data-search",
+          (lang.name + " " + lang.blurb).toLowerCase()
+        );
         frag.appendChild(box);
       }
     });
 
     grid.appendChild(frag);
+
+    var countEl = document.getElementById("lang-count");
+    if (countEl) {
+      var available = data.LANGUAGES.filter(function (lang) {
+        return lang.available && data.lessonsByLang(lang.key).length > 0;
+      }).length;
+      countEl.textContent =
+        available + (available === 1 ? " lenguaje" : " lenguajes");
+    }
+
+    var search = document.getElementById("lang-search");
+    var empty = document.getElementById("lang-empty");
+
+    if (search) {
+      search.addEventListener("input", function () {
+        var query = search.value.toLowerCase().trim();
+        var visible = 0;
+
+        grid.querySelectorAll(".lang-card").forEach(function (card) {
+          var match =
+            !query ||
+            (card.getAttribute("data-search") || "").indexOf(query) !== -1;
+          card.hidden = !match;
+          if (match) visible++;
+        });
+
+        if (empty) empty.hidden = visible !== 0 || !query;
+      });
+    }
   }
 
   /* ---------- Lesson counters ---------- */

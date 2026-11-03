@@ -49,6 +49,30 @@
 <main id="main">
   <div class="wrap section section--tight">
 
+    <header class="page-hero editor-hero">
+      <div class="page-hero-copy">
+        <span class="eyebrow">Editor en el navegador</span>
+        <h1>Tu taller de código</h1>
+        <p class="page-lead">
+          Escribe HTML, CSS y JavaScript, pulsa Ejecutar y mira el resultado al
+          instante. Sin instalar nada y sin crear una cuenta.
+        </p>
+        <div class="hero-meta">
+          <span class="badge badge--brand">Vista previa en vivo</span>
+          <span class="badge">Se guarda en tu navegador</span>
+          <span class="badge">Ejecución aislada</span>
+        </div>
+      </div>
+
+      <aside class="editor-hero-note" aria-label="Consejo del editor">
+        <span class="editor-hero-note-icon" aria-hidden="true">&lt;/&gt;</span>
+        <div>
+          <strong>Consejo rápido</strong>
+          <p>Pulsa Ctrl + Enter para ejecutar sin soltar el teclado.</p>
+        </div>
+      </aside>
+    </header>
+
     <noscript>
       <div class="notice notice--warn">
         <span><strong>El editor necesita JavaScript.</strong> Actívalo y recarga la página.</span>
@@ -58,18 +82,33 @@
     <div class="pg-shell">
 
       <div class="pg-toolbar" role="toolbar" aria-label="Herramientas del editor">
-        <span class="pg-title" id="pg-title">Editor</span>
+        <div class="pg-window" aria-hidden="true"><i></i><i></i><i></i></div>
+
+        <div class="pg-doc">
+          <span class="pg-title" id="pg-title">Editor</span>
+          <span class="pg-subtitle">3 archivos · HTML, CSS y JS</span>
+        </div>
 
         <div class="pg-tabs" role="tablist" aria-label="Archivo">
-          <button class="pg-tab" type="button" role="tab" data-tab="html" aria-selected="true">HTML</button>
-          <button class="pg-tab" type="button" role="tab" data-tab="css" aria-selected="false">CSS</button>
-          <button class="pg-tab" type="button" role="tab" data-tab="js" aria-selected="false">JS</button>
+          <button class="pg-tab" type="button" role="tab" data-tab="html" aria-selected="true">
+            <span class="pg-dot pg-dot--html" aria-hidden="true"></span>HTML
+          </button>
+          <button class="pg-tab" type="button" role="tab" data-tab="css" aria-selected="false">
+            <span class="pg-dot pg-dot--css" aria-hidden="true"></span>CSS
+          </button>
+          <button class="pg-tab" type="button" role="tab" data-tab="js" aria-selected="false">
+            <span class="pg-dot pg-dot--js" aria-hidden="true"></span>JS
+          </button>
         </div>
 
         <span class="spacer"></span>
 
+        <button class="btn btn--quiet btn--sm" type="button" id="pg-copy">Copiar</button>
         <button class="btn btn--quiet btn--sm" type="button" id="pg-reset">Reiniciar</button>
         <button class="btn btn--primary btn--sm" type="button" id="pg-run">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
           Ejecutar
         </button>
       </div>
@@ -78,11 +117,15 @@
 
         <div class="pg-panel">
           <div class="pg-panel-head">
-            <span id="pg-file-label" data-tab-label>index.html</span>
+            <span class="pg-file">
+              <span class="pg-dot pg-dot--html" id="pg-file-dot" aria-hidden="true"></span>
+              <span id="pg-file-label" data-tab-label>index.html</span>
+            </span>
             <span class="spacer"></span>
-            <span class="pg-hint">Ctrl + Enter para ejecutar</span>
+            <span class="pg-hint">Ctrl + Enter</span>
           </div>
           <div class="pg-editor-wrap">
+            <div class="pg-gutter" id="pg-gutter" aria-hidden="true">1</div>
             <textarea
               class="pg-editor"
               id="pg-editor"
@@ -92,11 +135,19 @@
               aria-label="Editor de código"
               placeholder="Escribe tu código aquí..."></textarea>
           </div>
+          <div class="pg-statusbar">
+            <span id="pg-position">Línea 1, col. 1</span>
+            <span class="spacer"></span>
+            <span id="pg-count">0 caracteres</span>
+          </div>
         </div>
 
         <div class="pg-panel">
           <div class="pg-panel-head">
-            <span>Resultado</span>
+            <span class="pg-file">
+              <span class="pg-dot pg-dot--live" aria-hidden="true"></span>
+              Vista previa
+            </span>
             <span class="spacer"></span>
             <span class="pg-hint" id="pg-status">Sin ejecutar</span>
           </div>
@@ -122,11 +173,29 @@
       </div>
     </div>
 
-    <p class="pg-help mt-4">
-      Tu código se guarda solo en este navegador. El resultado se ejecuta aislado,
-      sin acceso a tus datos, cuentas ni otras páginas.
-      <a href="aprender.html">Ver las lecciones</a>.
-    </p>
+    <div class="pg-tips">
+      <article class="pg-tip">
+        <span class="pg-tip-key" aria-hidden="true">1</span>
+        <div>
+          <strong>Escribe sin miedo</strong>
+          <p>Tu código se guarda solo en este dispositivo. Puedes probar y deshacer cuando quieras.</p>
+        </div>
+      </article>
+      <article class="pg-tip">
+        <span class="pg-tip-key" aria-hidden="true">2</span>
+        <div>
+          <strong>Mira la consola</strong>
+          <p>Los mensajes de console.log y los errores aparecen abajo, junto al resultado.</p>
+        </div>
+      </article>
+      <article class="pg-tip">
+        <span class="pg-tip-key" aria-hidden="true">3</span>
+        <div>
+          <strong>Aprende con lecciones</strong>
+          <p>Cada lección trae un ejemplo listo para abrir aquí. <a href="aprender.html">Ver lecciones</a>.</p>
+        </div>
+      </article>
+    </div>
 
   </div>
 </main>

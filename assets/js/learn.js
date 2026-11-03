@@ -8,7 +8,7 @@
 
   var LC = window.LC;
   var data = LC.data;
-  var state = { currentId: null };
+  var state = { currentId: null, query: "" };
 
   var LAST_KEY = "lc.lastLesson";
 
@@ -49,8 +49,18 @@
     bar.appendChild(fill);
     host.appendChild(bar);
 
+    var query = (state.query || "").toLowerCase().trim();
+
     data.LANGUAGES.forEach(function (lang) {
-      var lessons = data.lessonsByLang(lang.key);
+      var lessons = data.lessonsByLang(lang.key).filter(function (lesson) {
+        if (!query) return true;
+        return (
+          lesson.title.toLowerCase().indexOf(query) !== -1 ||
+          lesson.summary.toLowerCase().indexOf(query) !== -1 ||
+          lang.name.toLowerCase().indexOf(query) !== -1
+        );
+      });
+
       if (!lessons.length) return;
 
       var group = document.createElement("div");
@@ -99,6 +109,33 @@
 
       group.appendChild(list);
       host.appendChild(group);
+    });
+
+    if (query && !host.querySelector(".lesson-group")) {
+      var empty = document.createElement("p");
+      empty.className = "lesson-empty";
+      empty.textContent =
+        "No hay lecciones que coincidan con \"" + state.query.trim() + "\".";
+      host.appendChild(empty);
+    }
+  }
+
+  /* ---------- Counters ---------- */
+  function renderCounts() {
+    var languageCount = 0;
+
+    data.LANGUAGES.forEach(function (lang) {
+      if (lang.available && data.lessonsByLang(lang.key).length) {
+        languageCount++;
+      }
+    });
+
+    document.querySelectorAll("[data-lesson-count]").forEach(function (el) {
+      el.textContent = String(data.total);
+    });
+
+    document.querySelectorAll("[data-language-count]").forEach(function (el) {
+      el.textContent = String(languageCount);
     });
   }
 
@@ -255,11 +292,19 @@
     var chRow = document.createElement("div");
     chRow.className = "btn-row";
 
-    var practiceLink = document.createElement("a");
-    practiceLink.className = "btn btn--primary";
-    practiceLink.href = "editor.html?lesson=" + encodeURIComponent(lesson.id);
-    practiceLink.textContent = "Abrir en el editor";
-    chRow.appendChild(practiceLink);
+    if (lesson.practice) {
+      var practiceLink = document.createElement("a");
+      practiceLink.className = "btn btn--primary";
+      practiceLink.href = "editor.html?lesson=" + encodeURIComponent(lesson.id);
+      practiceLink.textContent = "Abrir en el editor";
+      chRow.appendChild(practiceLink);
+    } else {
+      var practiceNote = document.createElement("p");
+      practiceNote.className = "text-sm muted mb-0";
+      practiceNote.textContent =
+        "Este lenguaje no se ejecuta en el navegador. Copia los ejemplos y pruébalos en un compilador o intérprete online.";
+      chRow.appendChild(practiceNote);
+    }
 
     challenge.appendChild(chRow);
     host.appendChild(challenge);
@@ -317,12 +362,18 @@
       nextLink.href = "aprender.html?lesson=" + encodeURIComponent(next.id);
       nextLink.textContent = next.title + " \u2192";
       nav.appendChild(nextLink);
-    } else {
+    } else if (lesson.practice) {
       var endLink = document.createElement("a");
       endLink.className = "btn btn--ghost";
       endLink.href = "editor.html";
       endLink.textContent = "Practicar en el editor";
       nav.appendChild(endLink);
+    } else {
+      var homeLink = document.createElement("a");
+      homeLink.className = "btn btn--ghost";
+      homeLink.href = "index.html";
+      homeLink.textContent = "Volver al inicio";
+      nav.appendChild(homeLink);
     }
 
     host.appendChild(nav);
@@ -358,6 +409,15 @@
     var initial = pickInitialLesson();
     renderLesson(initial);
     renderSidebar();
+    renderCounts();
+
+    var search = document.getElementById("lesson-search");
+    if (search) {
+      search.addEventListener("input", function () {
+        state.query = search.value;
+        renderSidebar();
+      });
+    }
 
     var reset = document.getElementById("reset-progress");
     if (reset) {
