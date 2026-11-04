@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Comunidad — LibreCoding</title>
 <meta name="description" content="Comparte lo que construyes y pide ayuda. Comunidad de LibreCoding para aprender a programar.">
-<meta name="theme-color" content="#4f37e0">
+<meta name="theme-color" content="#58cc02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
@@ -34,6 +38,24 @@
       </ul>
     </nav>
 
+    <div class="site-stats" aria-label="Tu progreso">
+      <span class="site-stat" title="Racha de días seguidos">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3c1.5 3.5 4.5 4.8 4.5 8.5A4.5 4.5 0 0 1 12 16a4.5 4.5 0 0 1-4.5-4.5C7.5 7.8 10.5 6.5 12 3z"/>
+          <path d="M12 16c1.1 1.2 2 2.1 2 3.5A2 2 0 0 1 12 21a2 2 0 0 1-2-1.5c0-1.4.9-2.3 2-3.5z"/>
+        </svg>
+        <b data-streak>0</b>
+        <span class="site-stat-label">racha</span>
+      </span>
+      <span class="site-stat site-stat--xp" title="Puntos de experiencia">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m13 2-8 12h6l-1 8 8-12h-6z"/>
+        </svg>
+        <b data-xp>0</b>
+        <span class="site-stat-label">XP</span>
+      </span>
+    </div>
+
     <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar tema oscuro">
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"/>
@@ -56,17 +78,20 @@
         Aquí nadie nace sabiendo. Publica lo que has hecho, cuenta dónde te atascaste
         y ayuda a quien vaya un paso por detrás.
       </p>
+      <div class="pill-row mt-4">
+        <span class="server-status" id="community-status" data-mode="checking">Comprobando servidor</span>
+      </div>
     </div>
 
     <div class="feed-layout">
 
       <div>
-        <div class="notice notice--warn mb-4">
+        <div class="notice notice--warn mb-4" id="community-notice">
           <span>
-            <strong>Esta versión de la comunidad es local.</strong>
-            Todavía no hay servidor ni cuentas: lo que publiques se guarda solo en este
-            navegador y nadie más lo ve. No escribas datos personales reales — ni tuyos
-            ni de otras personas.
+            <strong>Comprobando el servidor de LibreCoding.</strong>
+            Si el servidor Go no está disponible, el muro vuelve al modo local: lo que
+            publiques se guarda solo en este navegador y nadie más lo ve. No escribas
+            datos personales reales — ni tuyos ni de otras personas.
           </span>
         </div>
 
@@ -136,6 +161,15 @@
           <a class="btn btn--ghost btn--sm" href="editor.html">Abrir el editor</a>
         </div>
 
+        <div class="card side-card" id="community-stats-card" hidden>
+          <h2>La comunidad en números</h2>
+          <div class="stats-row">
+            <span class="stat-pill stat-pill--brand"><b data-stat="posts">0</b> publicaciones</span>
+            <span class="stat-pill"><b data-stat="likes">0</b> me gusta</span>
+            <span class="stat-pill stat-pill--gold"><b data-stat="snippets">0</b> proyectos</span>
+          </div>
+        </div>
+
         <div class="card side-card">
           <h2>Proyecto abierto</h2>
           <p class="text-sm muted">
@@ -182,6 +216,7 @@
 </footer>
 
 <script src="assets/js/core.js"></script>
+<script src="assets/js/api.js"></script>
 <script src="assets/js/lessons-data.js"></script>
 <script src="assets/js/lessons-extra.js"></script>
 <script src="assets/js/community.js"></script>

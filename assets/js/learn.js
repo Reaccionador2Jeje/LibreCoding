@@ -172,6 +172,7 @@
       case "code":
         el = document.createElement("div");
         el.className = "code-block";
+        el.setAttribute("data-label", block.label || "ejemplo");
         var pre = document.createElement("pre");
         var code = document.createElement("code");
         code.textContent = block.text;

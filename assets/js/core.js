@@ -113,6 +113,17 @@
   }
 
   /* ---------- Progress ---------- */
+  function dayKey(date) {
+    var d = new Date(date);
+    return (
+      d.getFullYear() +
+      "-" +
+      String(d.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(d.getDate()).padStart(2, "0")
+    );
+  }
+
   var progress = {
     all: function () {
       var data = store.get(PROGRESS_KEY, {});
@@ -129,6 +140,7 @@
         delete data[lessonId];
       }
       store.set(PROGRESS_KEY, data);
+      syncStats();
       return data;
     },
     toggle: function (lessonId) {
@@ -137,10 +149,47 @@
     count: function () {
       return Object.keys(this.all()).length;
     },
+    xp: function () {
+      return this.count() * 10;
+    },
+    streak: function () {
+      var data = this.all();
+      var days = {};
+      Object.keys(data).forEach(function (id) {
+        var when = Number(data[id]);
+        if (when > 0) days[dayKey(when)] = true;
+      });
+
+      var cursor = new Date();
+      cursor.setHours(0, 0, 0, 0);
+
+      if (!days[dayKey(cursor)]) {
+        cursor.setDate(cursor.getDate() - 1);
+      }
+
+      var total = 0;
+      while (days[dayKey(cursor)]) {
+        total++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return total;
+    },
     reset: function () {
       store.remove(PROGRESS_KEY);
+      syncStats();
     }
   };
+
+  function syncStats() {
+    var streak = progress.streak();
+    var xp = progress.xp();
+    document.querySelectorAll("[data-streak]").forEach(function (el) {
+      el.textContent = String(streak);
+    });
+    document.querySelectorAll("[data-xp]").forEach(function (el) {
+      el.textContent = String(xp);
+    });
+  }
 
   /* ---------- Small helpers ---------- */
   function formatDate(timestamp) {
@@ -180,6 +229,7 @@
   function boot() {
     initTheme();
     initNav();
+    syncStats();
 
     document.querySelectorAll("[data-year]").forEach(function (el) {
       el.textContent = String(new Date().getFullYear());
@@ -205,6 +255,7 @@
     progress: progress,
     setTheme: setTheme,
     getTheme: getTheme,
+    syncStats: syncStats,
     formatDate: formatDate,
     escapeHtml: escapeHtml,
     debounce: debounce

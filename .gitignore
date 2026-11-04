@@ -1,7 +1,7 @@
 # LibreCoding — .gitignore
 #
-# Language-agnostic on purpose: the stack is not chosen yet.
-# Delete the sections that do not apply once it is.
+# Keeps the repository focused on source, tests and docs. Delete the
+# language sections that do not apply.
 
 # --- Editors and OS ---
 .DS_Store
@@ -63,6 +63,8 @@ venv/
 *.test
 *.out
 vendor/
+/data/
+librecoding
 
 # --- Rust ---
 # Cargo build output. Maven uses the same directory name.

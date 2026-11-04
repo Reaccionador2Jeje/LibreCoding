@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LibreCoding — Aprende a programar gratis</title>
 <meta name="description" content="LibreCoding es una plataforma y red social gratuita para aprender a programar desde cero. Lecciones, editor de código y comunidad. Código abierto bajo licencia Apache 2.0.">
-<meta name="theme-color" content="#4f37e0">
+<meta name="theme-color" content="#58cc02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
@@ -33,6 +37,24 @@
         <li><a href="comunidad.html">Comunidad</a></li>
       </ul>
     </nav>
+
+    <div class="site-stats" aria-label="Tu progreso">
+      <span class="site-stat" title="Racha de días seguidos">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3c1.5 3.5 4.5 4.8 4.5 8.5A4.5 4.5 0 0 1 12 16a4.5 4.5 0 0 1-4.5-4.5C7.5 7.8 10.5 6.5 12 3z"/>
+          <path d="M12 16c1.1 1.2 2 2.1 2 3.5A2 2 0 0 1 12 21a2 2 0 0 1-2-1.5c0-1.4.9-2.3 2-3.5z"/>
+        </svg>
+        <b data-streak>0</b>
+        <span class="site-stat-label">racha</span>
+      </span>
+      <span class="site-stat site-stat--xp" title="Puntos de experiencia">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m13 2-8 12h6l-1 8 8-12h-6z"/>
+        </svg>
+        <b data-xp>0</b>
+        <span class="site-stat-label">XP</span>
+      </span>
+    </div>
 
     <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar tema oscuro">
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -143,6 +165,48 @@
           <h3>Progresa</h3>
           <p>Tu avance se guarda solo en tu dispositivo. Vuelves y sigues donde lo dejaste.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PATH ============ -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Tu ruta</span>
+        <h2>Un camino corto entre la primera línea y tu primer proyecto</h2>
+        <p>Sin atajos raros: lees una idea, la escribes en el editor y la compartes cuando funciona.</p>
+      </div>
+
+      <div class="path" aria-label="Ruta de aprendizaje">
+        <div class="path-step">
+          <span class="path-node" aria-hidden="true">1</span>
+          <div>
+            <strong>Elige un lenguaje</strong>
+            <p>HTML, CSS, JavaScript, Python, SQL y muchos más. Todos empiezan desde cero.</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <span class="path-node" aria-hidden="true">2</span>
+          <div>
+            <strong>Lee una lección de 5 minutos</strong>
+            <p>Una idea cada vez, con ejemplos que puedes tocar y un reto al final.</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <span class="path-node" aria-hidden="true">3</span>
+          <div>
+            <strong>Ábrela en el editor</strong>
+            <p>El código de la lección se carga listo para ejecutar. Cambia algo y mira qué pasa.</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <span class="path-node" aria-hidden="true">4</span>
+          <div>
+            <strong>Guarda y comparte</strong>
+            <p>Con el servidor de LibreCoding puedes crear un enlace a tu código y publicarlo en la comunidad.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

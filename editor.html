@@ -5,9 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Editor de código — LibreCoding</title>
 <meta name="description" content="Escribe HTML, CSS y JavaScript y mira el resultado al instante. Editor de código en el navegador, gratis y sin cuenta.">
-<meta name="theme-color" content="#4f37e0">
+<meta name="theme-color" content="#58cc02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/editor.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -34,6 +38,24 @@
       </ul>
     </nav>
 
+    <div class="site-stats" aria-label="Tu progreso">
+      <span class="site-stat" title="Racha de días seguidos">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3c1.5 3.5 4.5 4.8 4.5 8.5A4.5 4.5 0 0 1 12 16a4.5 4.5 0 0 1-4.5-4.5C7.5 7.8 10.5 6.5 12 3z"/>
+          <path d="M12 16c1.1 1.2 2 2.1 2 3.5A2 2 0 0 1 12 21a2 2 0 0 1-2-1.5c0-1.4.9-2.3 2-3.5z"/>
+        </svg>
+        <b data-streak>0</b>
+        <span class="site-stat-label">racha</span>
+      </span>
+      <span class="site-stat site-stat--xp" title="Puntos de experiencia">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m13 2-8 12h6l-1 8 8-12h-6z"/>
+        </svg>
+        <b data-xp>0</b>
+        <span class="site-stat-label">XP</span>
+      </span>
+    </div>
+
     <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Activar tema oscuro">
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8z"/>
@@ -46,8 +68,8 @@
   </div>
 </header>
 
-<main id="main">
-  <div class="wrap section section--tight">
+<main id="main" class="editor-main">
+  <div class="wrap wrap--wide section section--tight">
 
     <header class="page-hero editor-hero">
       <div class="page-hero-copy">
@@ -61,6 +83,7 @@
           <span class="badge badge--brand">Vista previa en vivo</span>
           <span class="badge">Se guarda en tu navegador</span>
           <span class="badge">Ejecución aislada</span>
+          <span class="badge badge--accent" id="editor-server-status">Servidor: comprobando</span>
         </div>
       </div>
 
@@ -79,97 +102,182 @@
       </div>
     </noscript>
 
-    <div class="pg-shell">
+    <div class="pg-workspace">
 
-      <div class="pg-toolbar" role="toolbar" aria-label="Herramientas del editor">
-        <div class="pg-window" aria-hidden="true"><i></i><i></i><i></i></div>
-
-        <div class="pg-doc">
-          <span class="pg-title" id="pg-title">Editor</span>
-          <span class="pg-subtitle">3 archivos · HTML, CSS y JS</span>
+      <aside class="pg-explorer" aria-label="Explorador del proyecto">
+        <div class="pg-explorer-head">
+          <span class="pg-explorer-title">Mi proyecto</span>
+          <span class="pg-save-state" id="pg-save-state" data-mode="saved">Guardado</span>
         </div>
 
-        <div class="pg-tabs" role="tablist" aria-label="Archivo">
-          <button class="pg-tab" type="button" role="tab" data-tab="html" aria-selected="true">
-            <span class="pg-dot pg-dot--html" aria-hidden="true"></span>HTML
+        <div class="pg-file-tree" role="list" aria-label="Archivos">
+          <button class="pg-file-item is-active" type="button" role="listitem" data-file="html">
+            <span class="pg-dot pg-dot--html" aria-hidden="true"></span>
+            <span class="pg-file-name">index.html</span>
+            <span class="pg-file-size" data-file-size="html">0 B</span>
           </button>
-          <button class="pg-tab" type="button" role="tab" data-tab="css" aria-selected="false">
-            <span class="pg-dot pg-dot--css" aria-hidden="true"></span>CSS
+          <button class="pg-file-item" type="button" role="listitem" data-file="css">
+            <span class="pg-dot pg-dot--css" aria-hidden="true"></span>
+            <span class="pg-file-name">estilos.css</span>
+            <span class="pg-file-size" data-file-size="css">0 B</span>
           </button>
-          <button class="pg-tab" type="button" role="tab" data-tab="js" aria-selected="false">
-            <span class="pg-dot pg-dot--js" aria-hidden="true"></span>JS
+          <button class="pg-file-item" type="button" role="listitem" data-file="js">
+            <span class="pg-dot pg-dot--js" aria-hidden="true"></span>
+            <span class="pg-file-name">script.js</span>
+            <span class="pg-file-size" data-file-size="js">0 B</span>
           </button>
         </div>
 
-        <span class="spacer"></span>
-
-        <button class="btn btn--quiet btn--sm" type="button" id="pg-copy">Copiar</button>
-        <button class="btn btn--quiet btn--sm" type="button" id="pg-reset">Reiniciar</button>
-        <button class="btn btn--primary btn--sm" type="button" id="pg-run">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-          Ejecutar
-        </button>
-      </div>
-
-      <div class="pg-split">
-
-        <div class="pg-panel">
-          <div class="pg-panel-head">
-            <span class="pg-file">
-              <span class="pg-dot pg-dot--html" id="pg-file-dot" aria-hidden="true"></span>
-              <span id="pg-file-label" data-tab-label>index.html</span>
-            </span>
-            <span class="spacer"></span>
-            <span class="pg-hint">Ctrl + Enter</span>
-          </div>
-          <div class="pg-editor-wrap">
-            <div class="pg-gutter" id="pg-gutter" aria-hidden="true">1</div>
-            <textarea
-              class="pg-editor"
-              id="pg-editor"
-              spellcheck="false"
-              autocapitalize="off"
-              autocorrect="off"
-              aria-label="Editor de código"
-              placeholder="Escribe tu código aquí..."></textarea>
-          </div>
-          <div class="pg-statusbar">
-            <span id="pg-position">Línea 1, col. 1</span>
-            <span class="spacer"></span>
-            <span id="pg-count">0 caracteres</span>
-          </div>
+        <div class="pg-lesson-panel" id="pg-lesson-panel" hidden>
+          <span class="pg-lesson-eyebrow">Lección en curso</span>
+          <strong id="pg-lesson-title"></strong>
+          <p id="pg-lesson-challenge"></p>
+          <a class="btn btn--ghost btn--sm btn--block" id="pg-lesson-link">Leer la lección</a>
         </div>
 
-        <div class="pg-panel">
-          <div class="pg-panel-head">
-            <span class="pg-file">
-              <span class="pg-dot pg-dot--live" aria-hidden="true"></span>
-              Vista previa
-            </span>
-            <span class="spacer"></span>
-            <span class="pg-hint" id="pg-status">Sin ejecutar</span>
+        <div class="pg-explorer-foot">
+          <span class="pg-explorer-label">Atajos</span>
+          <span class="pg-key"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> Ejecutar</span>
+          <span class="pg-key"><kbd>Tab</kbd> Sangrar</span>
+        </div>
+      </aside>
+
+      <div class="pg-shell">
+
+        <div class="pg-toolbar" role="toolbar" aria-label="Herramientas del editor">
+          <div class="pg-window" aria-hidden="true"><i></i><i></i><i></i></div>
+
+          <div class="pg-doc">
+            <span class="pg-title" id="pg-title">Editor</span>
+            <span class="pg-subtitle">3 archivos · HTML, CSS y JS</span>
           </div>
 
-          <iframe
-            class="pg-preview"
-            id="pg-preview"
-            title="Vista previa del código"
-            sandbox="allow-scripts"
-            referrerpolicy="no-referrer"></iframe>
+          <div class="pg-tabs" role="tablist" aria-label="Archivo">
+            <button class="pg-tab" type="button" role="tab" data-tab="html" aria-selected="true">
+              <span class="pg-dot pg-dot--html" aria-hidden="true"></span>HTML
+            </button>
+            <button class="pg-tab" type="button" role="tab" data-tab="css" aria-selected="false">
+              <span class="pg-dot pg-dot--css" aria-hidden="true"></span>CSS
+            </button>
+            <button class="pg-tab" type="button" role="tab" data-tab="js" aria-selected="false">
+              <span class="pg-dot pg-dot--js" aria-hidden="true"></span>JS
+            </button>
+          </div>
 
-          <div class="pg-console">
-            <div class="pg-console-head">
-              <span>Consola</span>
-              <button type="button" id="pg-clear">Vaciar</button>
+          <span class="spacer"></span>
+
+          <span class="pg-share-state" id="pg-share-state" data-mode="idle">Solo local</span>
+
+          <button class="btn btn--quiet btn--sm" type="button" id="pg-focus" aria-pressed="false">
+            Enfoque
+          </button>
+          <button class="btn btn--quiet btn--sm" type="button" id="pg-copy">Copiar</button>
+          <button class="btn btn--quiet btn--sm" type="button" id="pg-download">Descargar</button>
+          <button class="btn btn--quiet btn--sm" type="button" id="pg-reset">Reiniciar</button>
+          <button class="btn btn--accent btn--sm" type="button" id="pg-share">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/>
+              <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>
+            </svg>
+            Compartir
+          </button>
+          <button class="btn btn--primary btn--sm" type="button" id="pg-run">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Ejecutar
+          </button>
+        </div>
+
+        <div class="pg-split">
+
+          <div class="pg-panel">
+            <div class="pg-panel-head">
+              <span class="pg-file">
+                <span class="pg-dot pg-dot--html" id="pg-file-dot" aria-hidden="true"></span>
+                <span id="pg-file-label" data-tab-label>index.html</span>
+              </span>
+              <span class="spacer"></span>
+              <span class="pg-hint">Ctrl + Enter</span>
             </div>
-            <div class="pg-console-log" id="pg-console" aria-live="polite">
-              <p class="pg-console-empty">Los mensajes de console.log aparecerán aquí.</p>
+            <div class="pg-editor-wrap">
+              <div class="pg-gutter" id="pg-gutter" aria-hidden="true">1</div>
+              <textarea
+                class="pg-editor"
+                id="pg-editor"
+                spellcheck="false"
+                autocapitalize="off"
+                autocorrect="off"
+                aria-label="Editor de código"
+                placeholder="Escribe tu código aquí..."></textarea>
+            </div>
+            <div class="pg-statusbar">
+              <span id="pg-position">Línea 1, col. 1</span>
+              <span class="spacer"></span>
+              <span id="pg-count">0 caracteres</span>
             </div>
           </div>
-        </div>
 
+          <div class="pg-panel">
+            <div class="pg-panel-head">
+              <span class="pg-file">
+                <span class="pg-dot pg-dot--live" aria-hidden="true"></span>
+                Vista previa
+              </span>
+              <span class="spacer"></span>
+
+              <div class="pg-devices" role="group" aria-label="Ancho de la vista previa">
+                <button class="pg-device" type="button" data-device="full" aria-pressed="true" title="Escritorio">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>
+                  </svg>
+                  <span class="sr-only">Escritorio</span>
+                </button>
+                <button class="pg-device" type="button" data-device="tablet" aria-pressed="false" title="Tablet">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
+                  </svg>
+                  <span class="sr-only">Tablet</span>
+                </button>
+                <button class="pg-device" type="button" data-device="phone" aria-pressed="false" title="Móvil">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>
+                  </svg>
+                  <span class="sr-only">Móvil</span>
+                </button>
+              </div>
+
+              <button class="pg-refresh" type="button" id="pg-refresh" title="Volver a ejecutar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/>
+                </svg>
+                <span class="sr-only">Actualizar vista previa</span>
+              </button>
+
+              <span class="pg-hint" id="pg-status">Sin ejecutar</span>
+            </div>
+
+            <div class="pg-preview-stage" data-device="full">
+              <iframe
+                class="pg-preview"
+                id="pg-preview"
+                title="Vista previa del código"
+                sandbox="allow-scripts"
+                referrerpolicy="no-referrer"></iframe>
+            </div>
+
+            <div class="pg-console">
+              <div class="pg-console-head">
+                <span>Consola</span>
+                <button type="button" id="pg-clear">Vaciar</button>
+              </div>
+              <div class="pg-console-log" id="pg-console" aria-live="polite">
+                <p class="pg-console-empty">Los mensajes de console.log aparecerán aquí.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -191,11 +299,27 @@
       <article class="pg-tip">
         <span class="pg-tip-key" aria-hidden="true">3</span>
         <div>
-          <strong>Aprende con lecciones</strong>
-          <p>Cada lección trae un ejemplo listo para abrir aquí. <a href="aprender.html">Ver lecciones</a>.</p>
+          <strong>Comparte tu código</strong>
+          <p>Con el servidor activo, el botón Compartir crea un enlace permanente a este proyecto.</p>
+        </div>
+      </article>
+      <article class="pg-tip">
+        <span class="pg-tip-key" aria-hidden="true">4</span>
+        <div>
+          <strong>Modo enfoque</strong>
+          <p>Oculta las distracciones y deja solo el editor y la vista previa para concentrarte.</p>
         </div>
       </article>
     </div>
+
+    <section class="pg-gallery" id="pg-gallery" hidden>
+      <div class="pg-gallery-head">
+        <span class="eyebrow">Comunidad</span>
+        <h2>Proyectos compartidos</h2>
+        <p>Enlaces creados con el servidor de LibreCoding. Ábrelos, cámbialos y aprende de ellos.</p>
+      </div>
+      <div class="pg-gallery-grid" id="pg-gallery-grid"></div>
+    </section>
 
   </div>
 </main>
@@ -232,6 +356,7 @@
 </footer>
 
 <script src="assets/js/core.js"></script>
+<script src="assets/js/api.js"></script>
 <script src="assets/js/lessons-data.js"></script>
 <script src="assets/js/lessons-extra.js"></script>
 <script src="assets/js/playground.js"></script>
