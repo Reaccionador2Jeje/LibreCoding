@@ -153,6 +153,20 @@
       sigil: "Rs",
       blurb: "Seguro y muy rápido, sin sorpresas.",
       available: true
+    },
+    {
+      key: "terminal",
+      name: "Terminal",
+      sigil: ">_",
+      blurb: "Domina la línea de comandos como un profesional.",
+      available: true
+    },
+    {
+      key: "assembly",
+      name: "Assembly",
+      sigil: "asm",
+      blurb: "Habla directamente con el procesador.",
+      available: true
     }
   ];
 
