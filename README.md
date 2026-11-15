@@ -40,48 +40,22 @@ These are the pillars the project is being built around:
 
 ## Status
 
-LibreCoding is in **early development**, but it is already runnable in two ways:
+LibreCoding is in **early development**. The current repository contains a
+static-site prototype:
 
-- **Static site** — open `index.html` in a browser. Lessons, the code editor and
-  the community demo work without a build step or dependencies. Progress and
-  local posts stay in your browser.
-- **Full server** — a single Go binary serves the site and a JSON API for shared
-  projects and the community wall, with data persisted on disk.
+- Open `index.html` in a browser. Lessons, the code editor and the community
+  demo work without a build step or dependencies.
+- Learning progress and demo community posts stay in the current browser.
+- A shared Go server and persistent community API are **planned, not included
+  in the current source tree yet**. Do not rely on the API routes below until
+  the server implementation and its tests are published.
 
-## Run the Go server
+## Planned shared server
 
-Requires Go 1.22 or newer.
-
-```bash
-go run .                 # http://localhost:8080
-go test ./...            # run the test suite
-go build -o librecoding  # build a single deployable binary
-```
-
-Configuration:
-
-| Variable        | Default                 | Meaning                                      |
-| --------------- | ----------------------- | -------------------------------------------- |
-| `LC_ADDR`       | `:8080`                 | Address the HTTP server listens on           |
-| `LC_DATA`       | `data/librecoding.json` | JSON file where posts and snippets are saved |
-| `LC_CORS_ORIGIN`| empty                   | Allowed origin for API calls (or `*`)        |
-
-The site is embedded in the binary, so the built file runs on its own. Clean URLs
-are available (`/aprender`, `/editor`, `/comunidad`), and the API exposes:
-
-- `GET /api/health` — service status and version.
-- `GET /api/stats` — counters for posts, likes and snippets.
-- `GET /api/posts` — community feed.
-- `POST /api/posts` — publish a post (`X-Client-Id` required).
-- `DELETE /api/posts/{id}` — delete your own post.
-- `POST /api/posts/{id}/like` — toggle a like.
-- `GET /api/snippets` — recent shared projects.
-- `POST /api/snippets` — save a project and get a permanent link.
-- `GET /api/snippets/{id}` — load a shared project.
-
-The server only needs the standard library. `Snippet` bodies are sandboxed in the
-editor with `sandbox="allow-scripts"` (never `allow-same-origin`), and community
-input is length-limited and rate-limited per IP.
+The future server is expected to provide accounts, shared projects and a
+moderated community API. Those endpoints are not implemented in this repository
+yet. The current static prototype must not be described or deployed as a
+multi-user service.
 
 ## Safety and privacy
 
