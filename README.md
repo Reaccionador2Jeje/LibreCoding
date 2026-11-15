@@ -137,3 +137,9 @@ project, please use a different name for your distribution.
 ---
 
 Made with care by **Atdev Dev**.
+
+## Walletie compatibility
+
+Learning, lessons, practice, and essential community access remain free. Walletie may support optional achievement rewards, but credits must never gate learning.
+
+Walletie V1 currently accepts AtDev Cloud HS256 tokens only; other identity systems need the documented SSO bridge first. See the [Walletie integration matrix](https://github.com/Reaccionador2Jeje/Walletie/blob/main/docs/INTEGRATION_MATRIX.md).
